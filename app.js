@@ -1,11 +1,12 @@
-const express = require('express');
 const dotenv = require('dotenv');
+const express = require('express');
 const connectDB = require('./config/db');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 
 //Load config
@@ -30,6 +31,7 @@ app.use(
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
+    store: new MongoStore({ mongoUrl: process.env.MONGO_URI }),
   })
 );
 
